@@ -2,17 +2,9 @@
 
 @{
     ViewData["Title"] = "Edit Employee";
-    var errorMessage = TempData["errorMessage"]?.ToString();
 }
 <h3>@ViewData["Title"]</h3>
 <hr />
-@if (!string.IsNullOrWhiteSpace(errorMessage))
-{
-    <div class="alert alert-danger">
-        <strong>Error!</strong>@errorMessage
-        <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
-    </div>
-}
 <form action="Edit" method="post" autocomplete="off">
     <div class="mb-3">
         <label class="form-label">EmployeeId</label>

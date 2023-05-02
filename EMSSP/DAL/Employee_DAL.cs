@@ -118,5 +118,24 @@ namespace EMSSP.DAL
             }
             return row > 0 ? true : false;
         }
+        public bool CreateOrEdit(Employee model)
+        {
+            int row = 0;
+            using (_connection = new SqlConnection(GetConnectionString()))
+            {
+                _command = _connection.CreateCommand();
+                _command.CommandType = CommandType.StoredProcedure;
+                _command.CommandText = "[DBO].[usp_InsertOrUpdateEmployee]";
+                _command.Parameters.AddWithValue("@Id", model.EmployeeId);
+                _command.Parameters.AddWithValue("@Name", model.Name);
+                _command.Parameters.AddWithValue("@Email", model.Email);
+                _command.Parameters.AddWithValue("@PhoneNo", model.PhoneNo);
+                _command.Parameters.AddWithValue("@JobTitle", model.JobTitle);
+                _connection.Open();
+                row = _command.ExecuteNonQuery();
+                _connection.Close();
+            }
+            return row > 0 ? true : false;
+        }
     }
 }

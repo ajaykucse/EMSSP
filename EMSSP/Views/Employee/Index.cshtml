@@ -2,27 +2,13 @@
 
 @{
     ViewData["Title"] = "Employee Details";
-    var successMessage = TempData["successMessage"]?.ToString();
-    var errorMessage = TempData["errorMessage"]?.ToString();
+
 }
 <h3>@ViewData["Title"]</h3>
 <hr />
-@if (!string.IsNullOrWhiteSpace(successMessage))
-{
-    <div class="alert alert-success">
-        <strong>Success!</strong>@successMessage
-        <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
-    </div>
-}
-else if (!string.IsNullOrWhiteSpace(errorMessage))
-{
-    <div class="alert alert-danger">
-        <strong>Error!</strong>@errorMessage
-        <button type="button" class="btn-close float-end" data-bs-dismiss="alert">x</button>
-    </div>
-}
+
 <form>
-    <button asp-action="Create" asp-controller="Employee" class="btn btn-primary mb-3">Create Employee</button>
+    <button asp-action="CreateOrEdit" asp-controller="Employee" class="btn btn-primary mb-3">Create Employee</button>
     <table class="table table-responsive table-hover table-bordered">
         <thead>
             <tr class="table-active">
@@ -47,7 +33,7 @@ else if (!string.IsNullOrWhiteSpace(errorMessage))
                         <td>@employee.JobTitle</td>
                         <td>
                             <div class="btn-group btn-group-sm">
-                                <a asp-controller="Employee" asp-action="Edit" asp-route-id="@employee.EmployeeId" class="btn btn-primary">Edit</a>
+                                <a asp-controller="Employee" asp-action="CreateOrEdit" asp-route-id="@employee.EmployeeId" class="btn btn-primary">Edit</a>
                                 <a asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.EmployeeId" class="btn btn-danger">Delete</a>
                             </div>
                         </td>
