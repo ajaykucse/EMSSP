@@ -80,3 +80,59 @@ begin catch
 rollback tran 
 end catch
 end
+
+--InsertOrUpdate
+CREATE PROC [DBO].[usp_InsertOrUpdateEmployee]
+(
+	@id int,
+	@Name varchar(50),
+	@Email nvarchar(max),
+	@PhoneNo nvarchar(max),
+	@JobTitle nvarchar(max)
+)
+as
+begin
+	begin try
+	if(@id=0)
+	begin
+	--INSERT
+	begin tran
+		insert into dbo.Employees
+		(
+			Name
+			,Email
+			,PhoneNo
+			,JobTitle
+		)
+		values
+		(
+			@Name
+			,@Email
+			,@PhoneNo
+			,@JobTitle
+		)
+	commit tran
+	end
+	else
+	begin
+	 --update
+	 declare @RowCount int = 0
+	 set @RowCount = (select count(1) from dbo.Employees where EmployeeId = @id)
+	 if(@RowCount > 0)
+	 begin
+	 begin tran
+	   update dbo.Employees
+		set
+			Name = @Name
+			,Email = @Email
+			,PhoneNo = @PhoneNo
+			,JobTitle = @JobTitle
+			where EmployeeId = @id
+	 commit tran
+	 end 
+	end
+	end try
+	begin catch
+	rollback tran
+	end catch
+end
