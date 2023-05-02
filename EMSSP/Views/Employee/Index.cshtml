@@ -1,0 +1,69 @@
+﻿@model List<EMSSP.Models.Employee>
+
+@{
+    ViewData["Title"] = "Employee Details";
+    var successMessage = TempData["successMessage"]?.ToString();
+    var errorMessage = TempData["errorMessage"]?.ToString();
+}
+<h3>@ViewData["Title"]</h3>
+<hr />
+@if (!string.IsNullOrWhiteSpace(successMessage))
+{
+    <div class="alert alert-success">
+        <strong>Success!</strong>@successMessage
+        <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+    </div>
+}
+else if (!string.IsNullOrWhiteSpace(errorMessage))
+{
+    <div class="alert alert-danger">
+        <strong>Error!</strong>@errorMessage
+        <button type="button" class="btn-close float-end" data-bs-dismiss="alert">x</button>
+    </div>
+}
+<form>
+    <button asp-action="Create" asp-controller="Employee" class="btn btn-primary mb-3">Create Employee</button>
+    <table class="table table-responsive table-hover table-bordered">
+        <thead>
+            <tr class="table-active">
+                <th>EmployeeId</th>
+                <th>Name</th>
+                <th>E-mail</th>
+                <th>Phone Number</th>
+                <th>Job Title</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var employee in Model)
+                {
+                    <tr>
+                        <td>@employee.EmployeeId</td>
+                        <td>@employee.Name</td>
+                        <td>@employee.Email</td>
+                        <td>@employee.PhoneNo</td>
+                        <td>@employee.JobTitle</td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a asp-controller="Employee" asp-action="Edit" asp-route-id="@employee.EmployeeId" class="btn btn-primary">Edit</a>
+                                <a asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.EmployeeId" class="btn btn-danger">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6">
+                        <div>
+                            Not Employee Records
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>

@@ -1,0 +1,49 @@
+﻿@model EMSSP.Models.Employee
+
+@{
+    ViewData["Title"] = "Edit Employee";
+    var errorMessage = TempData["errorMessage"]?.ToString();
+}
+<h3>@ViewData["Title"]</h3>
+<hr />
+@if (!string.IsNullOrWhiteSpace(errorMessage))
+{
+    <div class="alert alert-danger">
+        <strong>Error!</strong>@errorMessage
+        <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+    </div>
+}
+<form action="Edit" method="post" autocomplete="off">
+    <div class="mb-3">
+        <label class="form-label">EmployeeId</label>
+        <input type="text" class="form-control" asp-for="EmployeeId" readonly />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Full Name</label>
+        <input type="text" class="form-control" asp-for="Name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">E-mail</label>
+        <input type="email" class="form-control" asp-for="Email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Phone Number</label>
+        <input type="text" class="form-control" asp-for="PhoneNo" />
+        <span asp-validation-for="PhoneNo" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Job Title</label>
+        <input type="text" class="form-control" asp-for="JobTitle" />
+        <span asp-validation-for="JobTitle" class="text-danger"></span>
+    </div>
+    <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+</form>
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
