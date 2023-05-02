@@ -1,6 +1,6 @@
 --fetching all employees
 
-alter procedure GetAllEmployees
+create procedure GetAllEmployees
 As
 Begin
 select * from Employees with(nolock)
@@ -13,7 +13,7 @@ Begin
 select * from Employees where EmployeeId =@id
 end
 -- update employee
-alter procedure UpdateEmployeeRecord
+create procedure UpdateEmployeeRecord
 @Id int,
 @Name varchar(50),
 @Email nvarchar(max),
